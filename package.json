@@ -1,5 +1,5 @@
 {
-  "name": "audit",
+  "name": "auditech-test",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "firebase": "^9.6.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.4.0",
     "vuetify": "^2.4.0",

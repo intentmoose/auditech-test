@@ -1,6 +1,5 @@
 <template>
-  <v-col class="markets">
-    <v-btn xs="12" @click="getMarkets">generate</v-btn>
+  <v-col class="markets" xs="12">
     <v-data-table
       v-if="markets"
       :headers="headers"
@@ -29,22 +28,23 @@ export default {
   },
   data: () => ({
     headers: [
-      // { text: "Exchange", align: "start", sortable: false, value: "exchange" } -- example
-      { text: "Exchange Name", value: "fullExchangeName" },
+      { text: "Exchange name", value: "fullExchangeName" },
       { text: "Exchange", value: "exchange" },
       { text: "Region", value: "region" },
-      { text: "Price Hint", value: "priceHint" },
-      { text: "First Trade Date", value: "firstTradeDateMilliseconds" },
+      { text: "Price hint", value: "priceHint" },
+      { text: "Market state", value: "marketState" },
     ],
     markets: [],
+
     // Dialog setting
     dialogOpen: false,
     dialogData: null,
   }),
-  created() {},
+  created() {
+    this.getMarkets();
+  },
   methods: {
     rowClick(e) {
-      console.log(e);
       this.dialogOpen = true;
       this.dialogData = e;
     },

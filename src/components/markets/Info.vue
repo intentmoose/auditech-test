@@ -42,7 +42,9 @@ export default {
   created() {},
   methods: {
     /**
-     * takes key names and formats them by spliting and joining by uppercase letters.
+     * takes key names and formats:
+     * - spliting by uppercase
+     * - joining and giving it spaces
      */
     nameFormat(name) {
       let formatted;
