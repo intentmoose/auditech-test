@@ -1,10 +1,20 @@
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import store from './store';
+import vuetify from './plugins/vuetify';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
-Vue.config.productionTip = false
+process.env.NODE_ENV === 'production'
+  ? (axios.defaults.baseURL = 'https://auditeck-backend.herokuapp.com/')
+  : (axios.defaults.baseURL = 'http://localhost:3000/');
+
+Vue.use(VueAxios, axios);
+
+Vue.config.productionTip = false;
 
 new Vue({
   store,
-  render: h => h(App)
-}).$mount('#app')
+  vuetify,
+  render: (h) => h(App),
+}).$mount('#app');
