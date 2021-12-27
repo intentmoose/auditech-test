@@ -1,20 +1,32 @@
 <template>
   <v-col class="markets">
-    <v-btn 	xs=12 @click="getMarkets">generate</v-btn>
+    <v-btn xs="12" @click="getMarkets">generate</v-btn>
     <v-data-table
       v-if="markets"
       :headers="headers"
       :items="markets"
-      :items-per-page="5"
+      :items-per-page="10"
       class="elevation-1"
-      :loading="markets.length === 0"
+      loading-text="Loading markets..."
+      :loading="markets.length === 0 ? true : false"
+      @click:row="rowClick"
     ></v-data-table>
+    <Info
+      :dialogOpen="dialogOpen"
+      :dialogData="dialogData"
+      @dialog-close="dialogOpen = false"
+    />
   </v-col>
 </template>
 
 <script>
+import Info from "@/components/markets/Info";
+
 export default {
   name: "Markets",
+  components: {
+    Info,
+  },
   data: () => ({
     headers: [
       // { text: "Exchange", align: "start", sortable: false, value: "exchange" } -- example
@@ -25,9 +37,17 @@ export default {
       { text: "First Trade Date", value: "firstTradeDateMilliseconds" },
     ],
     markets: [],
+    // Dialog setting
+    dialogOpen: false,
+    dialogData: null,
   }),
   created() {},
   methods: {
+    rowClick(e) {
+      console.log(e);
+      this.dialogOpen = true;
+      this.dialogData = e;
+    },
     getMarkets() {
       this.axios
         .get("/signin")
