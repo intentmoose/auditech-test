@@ -1,21 +1,25 @@
 <template>
-  <v-col class="markets" xs="12">
-    <v-data-table
-      v-if="markets"
-      :headers="headers"
-      :items="markets"
-      :items-per-page="10"
-      class="elevation-1"
-      loading-text="Loading markets..."
-      :loading="markets.length === 0 ? true : false"
-      @click:row="rowClick"
-    ></v-data-table>
-    <Info
-      :dialogOpen="dialogOpen"
-      :dialogData="dialogData"
-      @dialog-close="dialogOpen = false"
-    />
-  </v-col>
+  <v-container>
+    <v-row class="text-center">
+      <v-col class="markets " xs="12">
+        <v-data-table
+          v-if="markets"
+          :headers="headers"
+          :items="markets"
+          :items-per-page="10"
+          class="elevation-1"
+          loading-text="Loading markets..."
+          :loading="markets.length === 0 ? true : false"
+          @click:row="rowClick"
+        ></v-data-table>
+        <Info
+          :dialogOpen="dialogOpen"
+          :dialogData="dialogData"
+          @dialog-close="dialogOpen = false"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
