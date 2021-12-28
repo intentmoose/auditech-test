@@ -1,12 +1,12 @@
 <template>
   <div class="login">
-    asdasd
     <v-dialog v-model="loginDialog" persistent fullscreen hide-overlay>
       <v-card class="login-form-wrap">
         <v-card class="pa-7 elevation-5" width="500">
           <h2 :class="!invalidDetails ? 'mb-8' : ''">
             Sign in to access dashboard
           </h2>
+          <h4 class="err-message" v-if="errMesage">*{{ errMesage }}</h4>
           <p color="red" class="mb-8" error></p>
           <v-alert
             dense
@@ -59,10 +59,16 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import "../firebase/init.js";
+import { getAuth, signInAnonymously } from "firebase/auth";
+
+/*
+ * Using Firebases authentication
+ * ⚠️ currently using Anonymous Auth for POC mode
+ */
 
 export default {
-  name: "HelloWorld",
+  name: "Login",
   props: ["loggedIn", "loginDialog"],
   data: () => ({
     valid: true,
@@ -83,21 +89,25 @@ export default {
       min: (v) => v.length >= 4 || "Min 4 characters",
       emailMatch: () => `The email and password you entered don't match`,
     },
+    errMesage: null,
     invalidDetails: false,
   }),
   methods: {
-    auth() {
+    validate() {
+      let valid = this.$refs.form.validate();
+      if (valid) this.login();
+    },
+    login() {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
+      signInAnonymously(auth)
+        .then((res) => {
+          // Signed in and token saved in localStorage
+          localStorage.setItem("token", res.user.uid);
+          this.$emit("logged-in");
         })
         .catch((error) => {
-          const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          this.errMesage = errorMessage;
         });
     },
   },
@@ -110,5 +120,8 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.err-message {
+  color: red;
 }
 </style>

@@ -8,8 +8,13 @@
     </v-app-bar>
 
     <v-main>
-      <Login :loginDialog="loginDialog" :loggedIn="loggedIn" />
-      <Main v-if="loggedIn" />
+      <Login
+        @logged-in="loggedIn = true"
+        :loginDialog="loginDialog"
+        :loggedIn="loggedIn"
+        v-if="!loggedIn"
+      />
+      <Main v-else />
     </v-main>
   </v-app>
 </template>
