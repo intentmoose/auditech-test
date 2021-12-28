@@ -34,6 +34,7 @@ export default {
     UserSettings,
   },
   created() {
+    // checks if token has been saved if so go stright to Markets page
     if (localStorage.token.length !== undefined) {
       this.loggedIn = true;
       this.loginDialog = false;

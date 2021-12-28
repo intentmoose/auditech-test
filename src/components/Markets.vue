@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="text-center">
-      <v-col class="markets " xs="12">
+      <v-col class="markets" xs="12">
         <v-data-table
           v-if="markets"
           :headers="headers"

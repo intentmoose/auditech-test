@@ -106,6 +106,7 @@ export default {
           this.$emit("logged-in");
         })
         .catch((error) => {
+          // If error displays error message in card
           const errorMessage = error.message;
           this.errMesage = errorMessage;
         });
