@@ -42,7 +42,11 @@
               class="input-group--focused mb-8"
               @click:append="show = !show"
             ></v-text-field>
-
+            <v-checkbox
+              v-model="rememberMe"
+              label="Remember me"
+              required
+            ></v-checkbox>
             <v-btn
               :disabled="!valid"
               color="success"
@@ -89,6 +93,7 @@ export default {
       min: (v) => v.length >= 4 || "Min 4 characters",
       emailMatch: () => `The email and password you entered don't match`,
     },
+    rememberMe: false,
     errMesage: null,
     invalidDetails: false,
   }),
@@ -101,8 +106,8 @@ export default {
       const auth = getAuth();
       signInAnonymously(auth)
         .then((res) => {
-          // Signed in and token saved in localStorage
-          localStorage.setItem("token", res.user.uid);
+          // Signed in and token saved in localStorage if checked "Remeber me"
+          if (this.rememberMe) localStorage.setItem("token", res.user.uid);
           this.$emit("logged-in");
         })
         .catch((error) => {
