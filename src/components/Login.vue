@@ -3,7 +3,7 @@
     <v-dialog v-model="loginDialog" persistent fullscreen hide-overlay>
       <v-card class="login-form-wrap">
         <v-card class="pa-7 elevation-5" width="500">
-          <h2 :class="!invalidDetails ? 'mb-8' : ''">
+          <h2 :class="`login-title ${!invalidDetails ? 'mb-8' : ''}`">
             Sign in to access dashboard
           </h2>
           <h4 class="err-message" v-if="errMesage">*{{ errMesage }}</h4>
@@ -126,8 +126,15 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 5px !important;
 }
 .err-message {
   color: red;
+}
+.login-title {
+  font-size: 1.7rem;
+  @media only screen and (max-width: 720px) {
+    font-size: 1.2rem;
+  }
 }
 </style>
