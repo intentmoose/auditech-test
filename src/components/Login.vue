@@ -68,7 +68,7 @@ import { getAuth, signInAnonymously } from "firebase/auth";
 
 /*
  * Using Firebases authentication
- * ⚠️ currently using Anonymous Auth for POC mode
+ * ⚠️ currently using Anonymous Auth for POC/Test
  */
 
 export default {
